@@ -4,9 +4,9 @@ from . import views
 
 urlpatterns = [
     
-    path('peliculas/', views.peliculas),
-    path('usuario/', views.usuario),
-    path('resenia/', views.resenia),
+    path('peliculas/', views.pelicula, name="peliculas"),
+    path('usuario/', views.usuario, name='usuarios'),
+    path('resenia/', views.resenia, name='resenias'),    
     #path('entregables/', views.entregable)
     #path('alta_curso', views.views.curso_formulario)
     #path('buscar', views.buscar)
