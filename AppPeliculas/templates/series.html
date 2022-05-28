@@ -4,13 +4,14 @@
 {% block bloque1 %}
 <br>    
 
-<h4 style="color: rgb(30, 41, 69);">Peliculas</h4>
+<h4 style="color: rgb(30, 41, 69);">Series</h4>
 
-{% for n in peliculas %}       
+{% for n in series %}       
     <div class="card border-dark mb-3" style="max-width: 18rem;">
         <div class="card-header" style="background-color: rgba(14,46,30,0.4);"><h5>{{n.titulo}}</h5></div>
         <div class="card-body text-dark">
-        <h6 class="card-title">{{n.anio}} / {{n.genero}}</h6>
+        <h6 class="card-title">{{n.anio_inicio}} - {{n.anio_finalizacion}} / {{n.genero}}</h6>
+        <h6 class="card-title">Temporadas: {{n.temporadas}}</h6>
         <p class="card-text">{{n.resumen}}</p>
         </div>
     </div>

@@ -17,9 +17,10 @@ def inicio (request):
 
 def pelicula (request):
     peliculas = Pelicula.objects.all()    
-    plantilla = loader.get_template('peliculas.html')   
-    documento = plantilla.render({"peliculas":peliculas})    
-    return HttpResponse(documento)
+    #plantilla = loader.get_template('peliculas.html')   
+    #documento = plantilla.render({"peliculas":peliculas})   
+    documento = ({"peliculas":peliculas}) 
+    return render (request, "peliculas.html", documento)
 
 def usuario (request):
     usuarios = Usuario.objects.all()
@@ -31,4 +32,10 @@ def resenia (request):
     resenias = Resenia.objects.all()
     plantilla = loader.get_template('resenias.html')   
     documento = plantilla.render({"resenias":resenias})    
+    return HttpResponse(documento)
+
+def serie (request):
+    series = Serie.objects.all()
+    plantilla = loader.get_template('series.html')   
+    documento = plantilla.render({"series":series})    
     return HttpResponse(documento)

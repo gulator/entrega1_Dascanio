@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bloque1 %}
+<br>    
+
+<h4 style="color: rgb(30, 41, 69);">Reseñas</h4>
+
+{% for n in resenias %}       
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4" style="background-color: rgba(30, 41, 69, 0.5);">
+        <!--<img src="..." class="img-fluid rounded-start" alt="...">-->
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Pelicula: {{n.pelicula}}</h5>
+          <p class="card-text"><small class="text-muted"><b>Puntaje: {{n.puntuacion}}</b></small></p>
+          <p class="card-text">{{n.comentario}}.</p>
+          <p class="card-text"><small class="text-muted">{{n.usuario}} - {{n.fecha}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+{% endblock %}

@@ -12,8 +12,8 @@ def ruta (request, filename):
 
 
 class Pelicula (models.Model):
-    titulo = models.CharField(max_length=40)
-    genero = models.CharField(max_length=40)
+    titulo = models.CharField(max_length=60)
+    genero = models.CharField(max_length=20)
     anio = models.IntegerField()
     resumen = models.TextField()
     portada = models.ImageField(upload_to = ruta, null=True, blank=True)
@@ -26,8 +26,21 @@ class Usuario (models.Model):
     avatar = models.ImageField(upload_to = ruta, null=True, blank=True)
 
 class Resenia (models.Model):
-    pelicula = models.CharField(max_length=40)
+    pelicula = models.CharField(max_length=60)
     usuario = models.CharField(max_length=40)
     puntuacion = models.IntegerField()
+    comentario = models.TextField()
     fecha = models.DateField()
 
+
+class Genero (models.Model):
+    genero = models.CharField(max_length=40)
+
+class Serie (models.Model):
+    titulo = models.CharField(max_length=60)
+    genero = models.CharField(max_length=20)
+    anio_inicio = models.IntegerField()
+    anio_finalizacion = models.IntegerField()
+    temporadas = models.IntegerField()
+    resumen = models.TextField()
+    portada = models.ImageField(upload_to = ruta, null=True, blank=True)
