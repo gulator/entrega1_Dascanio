@@ -1,0 +1,50 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block bloque1 %}
+<br>
+<h3 style="color: rgb(246, 244, 255);text-align: center;">Formulario de alta de Usuario</h3>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      
+    </div>
+    <div class="col">
+      <form action="alta_usuario" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Nombre:</span>
+          <input type="text" class="form-control" placeholder="nombre de usuario" aria-describedby="inputGroup-sizing-default" name="nombre">
+        </div>
+        
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="sexo">Sexo:</label>
+          <select class="form-select" id="sexo", name="sexo">
+            <option selected>Elija una opcion</option>            
+            <option value="Hombre">Hombre</option>
+            <option value="Mujer">Mujer</option>
+          </select>
+        </div>
+        
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Mail:</span>
+          <input type="email" class="form-control" placeholder="direccion de email válida" aria-describedby="inputGroup-sizing-default" name="mail">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Fecha:</span>
+          <input type="date" class="form-control" placeholder="Fecha de nacimiento" aria-describedby="inputGroup-sizing-default" name="fecha_nacimiento">
+        </div>  
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-2">
+      
+    </div>
+  </div>
+</div>
+
+<br>
+
+{% endblock %}

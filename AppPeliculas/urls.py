@@ -10,8 +10,10 @@ urlpatterns = [
     path('series', views.serie, name='series'),   
     path('alta_pelicula', views.alta_pelicula, name="peliculaFormulario"),
     path('buscar_pelicula', views.buscar_pelicula, name="buscarPelicula"),
-    path('buscar/', views.buscar)
-    
+    path('buscar/', views.buscar),
+    path('alta_genero', views.alta_genero, name="generoFormulario"),
+    path('alta_usuario', views.alta_usuario, name="usuarioFormulario"),
+    path('alta_serie', views.alta_serie, name="serieFormulario"),
     #path('buscar', views.buscar)
     
 ]

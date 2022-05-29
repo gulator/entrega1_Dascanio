@@ -3,7 +3,7 @@
 
 {% block bloque1 %}
 <br>
-<h3 style="color: rgb(246, 244, 255);text-align: center;">Formulario de alta de Peliculas</h3>
+<h3 style="color: rgb(246, 244, 255);text-align: center;">Formulario de alta de Series</h3>
 <br>
 <div class="container">
   <div class="row">
@@ -11,11 +11,11 @@
       
     </div>
     <div class="col">
-      <form action="alta_pelicula" method="POST">
+      <form action="alta_serie" method="POST">
         {% csrf_token %}
         <div class="input-group mb-3">
           <span class="input-group-text" id="inputGroup-sizing-default">Titulo:</span>
-          <input type="text" class="form-control" placeholder="nombre de la pelicula" aria-describedby="inputGroup-sizing-default" name="titulo">
+          <input type="text" class="form-control" placeholder="nombre de la serie" aria-describedby="inputGroup-sizing-default" name="titulo">
         </div>
         
         <div class="input-group mb-3">
@@ -29,9 +29,17 @@
         </div>
         
         <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">Año:</span>
-          <input type="text" class="form-control" placeholder="año de lanzamiento" aria-describedby="inputGroup-sizing-default" name="anio">
+          <span class="input-group-text" id="inputGroup-sizing-default">Inicio:</span>
+          <input type="number" class="form-control" placeholder="año de inicio" aria-describedby="inputGroup-sizing-default" name="anio_inicio">
         </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Fin:</span>
+            <input type="number" class="form-control" placeholder="año de finalizacion" aria-describedby="inputGroup-sizing-default" name="anio_finalizacion">
+          </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Temporadas:</span>
+            <input type="number" class="form-control" placeholder="cantidad de temporadas" aria-describedby="inputGroup-sizing-default" name="temporadas">
+        </div> 
         <div class="input-group mb-3">
           <span class="input-group-text" id="inputGroup-sizing-default">Resumen:</span>
           <input type="text" class="form-control" placeholder="resumen de la trama" aria-describedby="inputGroup-sizing-default" name="resumen">

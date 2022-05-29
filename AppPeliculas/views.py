@@ -72,3 +72,57 @@ def buscar (request):  #busqueda pelicula
         respuesta = "no se enviaron datos"  
 
     return HttpResponse(respuesta)  
+
+def alta_genero (request):
+   
+    if request.method == "POST":
+         miFormulario = Genero_Formulario(request.POST)        
+
+         if miFormulario.is_valid():
+            datos = miFormulario.cleaned_data
+            genero = Genero(genero=datos['genero'])
+            genero.save()             
+            return render (request, 'genero_formulario.html')
+    else:
+        miFormulario = Genero_Formulario()        
+    
+     
+    return render(request, 'genero_formulario.html')
+
+def alta_usuario (request):
+   
+    if request.method == "POST":
+         miFormulario = Usuario_Formulario(request.POST)        
+
+         if miFormulario.is_valid():
+            datos = miFormulario.cleaned_data
+            usuario = Usuario(nombre=datos['nombre'],sexo=datos['sexo'],mail=datos['mail'],fecha_nacimiento=datos['fecha_nacimiento'])
+            usuario.save()             
+            return render (request, 'usuario_formulario.html')
+    else:
+        miFormulario = Usuario_Formulario()        
+    
+     
+    return render(request, 'usuario_formulario.html')
+
+
+
+def alta_serie (request):
+   
+    if request.method == "POST":
+         miFormulario = Serie_Formulario(request.POST)        
+
+         if miFormulario.is_valid():
+            datos = miFormulario.cleaned_data
+            serie = Serie(titulo=datos['titulo'],genero=datos['genero'],anio_inicio=datos['anio_inicio'],anio_finalizacion=datos['anio_finalizacion'],temporadas=datos['temporadas'],resumen=datos['resumen'])
+            serie.save()
+            generos = Genero.objects.all()
+            documento = ({"generos":generos})  
+            return render (request, 'serie_formulario.html',documento)
+    else:
+        miFormulario = Serie_Formulario()        
+    
+    generos = Genero.objects.all()
+    #plantilla = loader.get_template('pelicula_formulario.html')   
+    documento = ({"generos":generos})    
+    return render(request, 'serie_formulario.html', documento)
