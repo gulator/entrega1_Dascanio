@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from AppPeliculas.models import *
 from django.template import loader
-from AppPeliculas.forms import Pelicula_Formulario
+from AppPeliculas.forms import *
 
 
 # Create your views here.
@@ -15,9 +15,10 @@ def inicio (request):
 
 
 def pelicula (request):
-    peliculas = Pelicula.objects.all()    
+    peliculas = Pelicula.objects.all()   
+    generos = Genero.objects.all() 
     plantilla = loader.get_template('peliculas.html')   
-    documento = plantilla.render({"peliculas":peliculas}) 
+    documento = plantilla.render({"peliculas":peliculas,"generos":generos}) 
     return HttpResponse (documento)
 
 def usuario (request):
@@ -47,11 +48,16 @@ def alta_pelicula (request):
             datos = miFormulario.cleaned_data
             pelicula = Pelicula(titulo=datos['titulo'],genero=datos['genero'],anio=datos['anio'],resumen=datos['resumen'])
             pelicula.save()
-            return render (request, 'pelicula_formulario.html')
+            generos = Genero.objects.all()
+            documento = ({"generos":generos})  
+            return render (request, 'pelicula_formulario.html',documento)
     else:
         miFormulario = Pelicula_Formulario()        
     
-    return render(request, 'pelicula_formulario.html')
+    generos = Genero.objects.all()
+    #plantilla = loader.get_template('pelicula_formulario.html')   
+    documento = ({"generos":generos})    
+    return render(request, 'pelicula_formulario.html', documento)
 
 def buscar_pelicula(request):
     return render (request, 'buscar_pelicula.html')

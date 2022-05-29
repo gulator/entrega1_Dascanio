@@ -1,0 +1,9 @@
+{% for g in generos %} 
+    {{g.genero}}
+    {% for p in peliculas %}    
+
+        {% if g.genero == p.genero %}
+            <li>{{p.titulo}}</li>
+        {% endif %}
+    {% endfor %}
+{% endfor %}

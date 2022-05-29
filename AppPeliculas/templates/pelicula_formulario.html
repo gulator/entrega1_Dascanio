@@ -1,33 +1,49 @@
 {% extends "base.html" %}
 {% load static %}
-<!--<form>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Titulo: </label>
-      <input type="text" class="form-control" id="titulo" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>-->
+
 {% block bloque1 %}
 <br>
-<form action="alta_pelicula" method="POST">
-    {% csrf_token %}
-    <p><label for="titulo">Titulo: </label>
-    <input type="text" id="titulo" name="titulo"></p>
-    <p><label for="genero">Genero: </label>
-    <input type="text" id="genero" name="genero"></p>
-    <p><label for="anio">Año: </label>
-    <input type="number" id="anio" name="anio"></p>
-    <p><label for="resumen">Resumen: </label>
-    <input type="text" id="resumen" name="resumen"></p>
-    <input type="submit" value="Enviar">
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      
+    </div>
+    <div class="col">
+      <form action="alta_pelicula" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Titulo:</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="titulo">
+        </div>
+        
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Genero:</label>
+          <select class="form-select" id="inputGroupSelect01", name="genero">
+            <option selected>Elija una opcion</option>
+            {% for genre in generos %}
+            <option value={{genre.genero}}>{{genre.genero}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Año:</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="anio">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Resumen:</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="resumen">
+        </div>  
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-2">
+      
+    </div>
+  </div>
+</div>
+
+<br>
+
 {% endblock %}

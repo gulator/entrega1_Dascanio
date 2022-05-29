@@ -4,15 +4,25 @@
 {% block bloque1 %}
 <br>    
 
-<h4 style="color: rgb(30, 41, 69);">Peliculas</h4>
+<h4 style="color: rgb(176, 198, 252); text-align: center;">Peliculas</h4>
 
-{% for n in peliculas %}       
-    <div class="card border-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header" style="background-color: rgba(14,46,30,0.4);"><h5>{{n.titulo}}</h5></div>
-        <div class="card-body text-dark">
-        <h6 class="card-title">{{n.anio}} / {{n.genero}}</h6>
-        <p class="card-text">{{n.resumen}}</p>
+<div class="container">
+    <div class="row">
+    {% for n in peliculas %}  
+      <div class="col">
+        <div class="card border-dark" style="min-width: 18rem; max-width: 18rem;padding-bottom: 10px;">
+            <div class="card-header" style="background-color: rgba(14,46,30,0.4);"><h5>{{n.titulo}}</h5></div>
+            <div class="card-body text-dark">
+            <h6 class="card-title">{{n.anio}} / {{n.genero}}</h6>
+            <p class="card-text">{{n.resumen}}</p>
+            </div>
         </div>
+      </div>
+      {% endfor %}
+      
     </div>
-    {% endfor %}
+  </div>
+     
+    
+    
 {% endblock %}
