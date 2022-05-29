@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bloque1 %}
+
+<form action="buscar">
+    <br>
+    <p><label for="titulo">Buscar Pelicula: </label>
+    <input type="text" id="titulo" name="titulo"></p>
+    
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+<!--<form>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Titulo: </label>
+      <input type="text" class="form-control" id="titulo" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>-->
+{% block bloque1 %}
+<br>
+<form action="alta_pelicula" method="POST">
+    {% csrf_token %}
+    <p><label for="titulo">Titulo: </label>
+    <input type="text" id="titulo" name="titulo"></p>
+    <p><label for="genero">Genero: </label>
+    <input type="text" id="genero" name="genero"></p>
+    <p><label for="anio">Año: </label>
+    <input type="number" id="anio" name="anio"></p>
+    <p><label for="resumen">Resumen: </label>
+    <input type="text" id="resumen" name="resumen"></p>
+    <input type="submit" value="Enviar">
+</form>
+{% endblock %}

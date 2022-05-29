@@ -1,0 +1,17 @@
+
+{% if cursos %}
+
+{% for val in pelicula %}
+    <h4>{{val.titulo}}</h4>
+    <ul>
+        <li>{{val.anio}}</li>
+        <li>{{val.genero}}</li>
+        <li>{{val.resumen}}</li>
+    </ul>
+
+{% endfor %}
+
+{% else %}
+    <h3 style="color: red;">¡No se encontraron títulos!</h3>
+
+{% endif %}

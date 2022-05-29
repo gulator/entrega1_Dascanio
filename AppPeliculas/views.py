@@ -2,8 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from AppPeliculas.models import *
 from django.template import loader
-
-
+from AppPeliculas.forms import Pelicula_Formulario
 
 
 # Create your views here.
@@ -17,10 +16,9 @@ def inicio (request):
 
 def pelicula (request):
     peliculas = Pelicula.objects.all()    
-    #plantilla = loader.get_template('peliculas.html')   
-    #documento = plantilla.render({"peliculas":peliculas})   
-    documento = ({"peliculas":peliculas}) 
-    return render (request, "peliculas.html", documento)
+    plantilla = loader.get_template('peliculas.html')   
+    documento = plantilla.render({"peliculas":peliculas}) 
+    return HttpResponse (documento)
 
 def usuario (request):
     usuarios = Usuario.objects.all()
@@ -39,3 +37,32 @@ def serie (request):
     plantilla = loader.get_template('series.html')   
     documento = plantilla.render({"series":series})    
     return HttpResponse(documento)
+
+def alta_pelicula (request):
+   
+    if request.method == "POST":
+         miFormulario = Pelicula_Formulario(request.POST)        
+
+         if miFormulario.is_valid():
+            datos = miFormulario.cleaned_data
+            pelicula = Pelicula(titulo=datos['titulo'],genero=datos['genero'],anio=datos['anio'],resumen=datos['resumen'])
+            pelicula.save()
+            return render (request, 'pelicula_formulario.html')
+    else:
+        miFormulario = Pelicula_Formulario()        
+    
+    return render(request, 'pelicula_formulario.html')
+
+def buscar_pelicula(request):
+    return render (request, 'buscar_pelicula.html')
+
+def buscar (request):  #busqueda pelicula
+    #respuesta = f"la pelicula que estoy buscando es: {request.GET['titulo']}"
+    if request.GET['titulo']:
+        titulo = request.GET['titulo']
+        pelicula = Pelicula.objects.filter(titulo__icontains=titulo)
+        return render (request,'resultado_busqueda.html',{"pelicula":pelicula})
+    else:
+        respuesta = "no se enviaron datos"  
+
+    return HttpResponse(respuesta)  
