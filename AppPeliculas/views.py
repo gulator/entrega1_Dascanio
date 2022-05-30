@@ -1,8 +1,10 @@
+from string import punctuation
 from django.http import HttpResponse
 from django.shortcuts import render
 from AppPeliculas.models import *
 from django.template import loader
 from AppPeliculas.forms import *
+from datetime import *
 
 
 # Create your views here.
@@ -60,18 +62,7 @@ def alta_pelicula (request):
     return render(request, 'pelicula_formulario.html', documento)
 
 def buscar_pelicula(request):
-    return render (request, 'buscar_pelicula.html')
-
-def buscar (request):  #busqueda pelicula
-    #respuesta = f"la pelicula que estoy buscando es: {request.GET['titulo']}"
-    if request.GET['titulo']:
-        titulo = request.GET['titulo']
-        pelicula = Pelicula.objects.filter(titulo__icontains=titulo)
-        return render (request,'resultado_busqueda.html',{"pelicula":pelicula})
-    else:
-        respuesta = "no se enviaron datos"  
-
-    return HttpResponse(respuesta)  
+    return render (request, 'buscar_pelicula.html')  
 
 def alta_genero (request):
    
@@ -126,3 +117,71 @@ def alta_serie (request):
     #plantilla = loader.get_template('pelicula_formulario.html')   
     documento = ({"generos":generos})    
     return render(request, 'serie_formulario.html', documento)
+
+def alta_resenia (request):
+   
+    if request.method == "POST":
+        print(request.POST)
+        miFormulario = Resenia_Formulario(request.POST)        
+
+        if miFormulario.is_valid():
+            datos = miFormulario.cleaned_data
+            print (datos)
+            resenia = Resenia(pelicula=datos['pelicula'],usuario=datos['usuario'],fecha=datos['fecha'],comentario=datos['comentario'],puntuacion=datos['puntuacion'])
+            resenia.save()
+            ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            peliculas = Pelicula.objects.all()
+            documento = ({"peliculas":peliculas, "ahora":ahora}) 
+            return render (request, 'resenia_formulario.html',documento)
+        else:
+            error = "Hubo un error en uno de los campos. Tu nombre no debe superar los 60 caracteres"
+            ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            peliculas = Pelicula.objects.all()
+            documento = ({"peliculas":peliculas, "ahora":ahora, "error":error}) 
+            return render (request, 'resenia_formulario.html',documento)
+
+    else:
+        
+        miFormulario = Resenia_Formulario()        
+    
+    ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    peliculas = Pelicula.objects.all()
+    documento = ({"peliculas":peliculas, "ahora":ahora})  
+    return render (request, 'resenia_formulario.html',documento)
+
+def buscar_peli (request):  #busqueda pelicula    
+    if request.GET['titulo']:
+        titulo = request.GET['titulo']
+        pelicula = Pelicula.objects.filter(titulo__icontains=titulo)
+        return render (request,'buscar_pelicula.html',{"pelicula":pelicula})
+    else:
+        peliculas = Pelicula.objects.all()   
+        generos = Genero.objects.all() 
+        respuesta = "no se enviaron datos"  
+        documento = ({"peliculas":peliculas,"generos":generos,"respuesta":respuesta}) 
+        return render (request,'peliculas.html',documento)
+        
+
+    return HttpResponse(respuesta)   
+
+def buscar_serie (request):  #busqueda serie    
+    if request.GET['titulo']:
+        titulo = request.GET['titulo']
+        serie = Serie.objects.filter(titulo__icontains=titulo)
+        return render (request,'buscar_serie.html',{"serie":serie})
+    else:
+        series = Serie.objects.all()   
+        generos = Genero.objects.all() 
+        respuesta = "no se enviaron datos"  
+        documento = ({"series":series,"generos":generos,"respuesta":respuesta}) 
+        return render (request,'series.html',documento) 
+
+def buscar_review (request):  #busqueda reseña    
+    if request.GET['titulo']:
+        titulo = request.GET['titulo']
+        pelicula = Pelicula.objects.filter(titulo__icontains=titulo)
+        return render (request,'resultado_busqueda.html',{"pelicula":pelicula})
+    else:
+        respuesta = "no se enviaron datos"  
+
+    return HttpResponse(respuesta) 

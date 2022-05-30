@@ -2,25 +2,51 @@
 {% load static %}
 
 {% block bloque1 %}
-<br>    
-
-<h4 style="color: rgb(30, 41, 69);">Reseñas</h4>
-
-{% for n in resenias %}       
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-      <div class="col-md-4" style="background-color: rgba(30, 41, 69, 0.5);">
-        <!--<img src="..." class="img-fluid rounded-start" alt="...">-->
+<br>
+<form action="buscar_review">
+  <div class="container" style="margin-right: 5px ;padding: 0px; border: 0px">
+    <div class="row">
+      <div class="col">      
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">Pelicula: {{n.pelicula}}</h5>
-          <p class="card-text"><small class="text-muted"><b>Puntaje: {{n.puntuacion}}</b></small></p>
-          <p class="card-text">{{n.comentario}}.</p>
-          <p class="card-text"><small class="text-muted">{{n.usuario}} - {{n.fecha}}</small></p>
+      <div class="col">      
+      </div>    
+      <div class="col">
+        <i style="color: red; text-align: right;font-size:medium">{{respuesta}}</i>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="buscar" name="titulo">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2" ><i class="bi bi-search color-cyan"></button>
         </div>
-      </div>
-    </div>
+        
+        
+      </div>  
+    </div>  
   </div>
+  </form>
+
+<h4 style="color: rgb(176, 198, 252); text-align: center;">Reseñas</h4>
+<br>
+<div class="container" style="padding: 0px; border: 0px">
+  <div class="row">
+    {% for n in resenias %} 
+    <div class="col">            
+      <div class="card mb-3" style="min-width: 400px;max-width: 400px;min-height: 180px;">
+          <div class="row g-0">
+            <div class="col-md-2" style="background-color: rgba(30, 41, 69, 0.5);min-height: 180px">
+              <!--<img src="..." class="img-fluid rounded-start" alt="...">-->
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Pelicula: {{n.pelicula}}</h5>
+                <p class="card-text"><small class="text-muted"><b>Puntaje: {{n.puntuacion}}</b></small></p>
+                <p class="card-text">{{n.comentario}}.</p>
+                <p class="card-text"><small class="text-muted">{{n.usuario}} - {{n.fecha}}</small></p>
+              </div>
+            </div>
+          </div>
+      </div>      
+    </div>
     {% endfor %}
+  </div>
+</div>
+
 {% endblock %}

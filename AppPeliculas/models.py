@@ -28,9 +28,9 @@ class Usuario (models.Model):
 class Resenia (models.Model):
     pelicula = models.CharField(max_length=60)
     usuario = models.CharField(max_length=40)
-    puntuacion = models.IntegerField()
+    puntuacion = models.CharField(max_length=20)
     comentario = models.TextField()
-    fecha = models.DateField()
+    fecha = models.DateTimeField()
 
 
 class Genero (models.Model):

@@ -1,0 +1,67 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block bloque1 %}
+<br>
+<h3 style="color: rgb(246, 244, 255);text-align: center;">Formulario posteo de reseñas</h3>
+<p style="color: red;text-align: center;font-size: smaller;">{{error}}</p>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      
+    </div>
+    <div class="col">
+      <form action="alta_resenia" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Nombre:</span>
+          <input type="text" class="form-control" placeholder="tu nombre" aria-describedby="inputGroup-sizing-default" name="usuario">
+        </div>
+        
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="pelicula">Pelicula:</label>
+          <select class="form-select" id="pelicula", name="pelicula">
+            <option selected>Elija una opcion</option>
+            {% for peli in peliculas %}
+            <option value="{{peli.titulo}}">{{peli.titulo}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="puntuacion">Puntuacion:</label>
+            <select class="form-select" id="puntuacion", name="puntuacion">
+              <option selected>elija su puntuacion</option>              
+              <option value="Excelente">Excelente</option>
+              <option value="Muy Buena">Muy Buena</option>     
+              <option value="Buena">Buena</option>     
+              <option value="Regular">Regular</option>     
+              <option value="Mala">Mala</option>     
+              <option value="Patetica">Patetica</option>     
+                                 
+            </select>
+          </div>
+        
+        
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Comentario:</span>
+          <input type="text" class="form-control" placeholder="deja tu comentario" aria-describedby="inputGroup-sizing-default" name="comentario">
+        </div> 
+        <div class="input-group mb-3">          
+            <input type="hidden" value="{{ahora}}" class="form-control"  aria-describedby="inputGroup-sizing-default" name="fecha">
+        </div> 
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      
+    </div>
+    <div class="col-2">
+      
+    </div>
+  </div>
+</div>
+
+<br>
+
+{% endblock %}
