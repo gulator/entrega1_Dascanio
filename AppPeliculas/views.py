@@ -1,6 +1,6 @@
 from string import punctuation
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from AppPeliculas.models import *
 from django.template import loader
 from AppPeliculas.forms import *
@@ -11,9 +11,7 @@ from datetime import *
 
 
 def inicio (request):
-    plantilla = loader.get_template('inicio.html')
-    documento = plantilla.render()
-    return HttpResponse(documento)
+    return redirect('/AppPeliculas/peliculas')
 
 
 def pelicula (request):
@@ -44,14 +42,19 @@ def serie (request):
 def alta_pelicula (request):
    
     if request.method == "POST":
-         miFormulario = Pelicula_Formulario(request.POST)        
+        miFormulario = Pelicula_Formulario(request.POST)        
 
-         if miFormulario.is_valid():
+        if miFormulario.is_valid():
             datos = miFormulario.cleaned_data
             pelicula = Pelicula(titulo=datos['titulo'],genero=datos['genero'],anio=datos['anio'],resumen=datos['resumen'])
             pelicula.save()
             generos = Genero.objects.all()
             documento = ({"generos":generos})  
+            return render (request, 'pelicula_formulario.html',documento)
+        else:
+            error = "Hubo un error en uno de los campos."
+            generos = Genero.objects.all()
+            documento = ({"generos":generos, "error":error}) 
             return render (request, 'pelicula_formulario.html',documento)
     else:
         miFormulario = Pelicula_Formulario()        
@@ -67,18 +70,26 @@ def buscar_pelicula(request):
 def alta_genero (request):
    
     if request.method == "POST":
-         miFormulario = Genero_Formulario(request.POST)        
+        miFormulario = Genero_Formulario(request.POST)        
 
-         if miFormulario.is_valid():
+        if miFormulario.is_valid():
             datos = miFormulario.cleaned_data
             genero = Genero(genero=datos['genero'])
-            genero.save()             
-            return render (request, 'genero_formulario.html')
+            genero.save()
+            generos = Genero.objects.all()          
+            documento = ({"generos":generos})             
+            return render (request, 'genero_formulario.html',documento)
+        else:
+            error = "Hubo un error en uno de los campos."
+            generos = Genero.objects.all()          
+            documento = ({"error":error, "generos":generos}) 
+            return render (request, 'genero_formulario.html',documento)
     else:
         miFormulario = Genero_Formulario()        
     
-     
-    return render(request, 'genero_formulario.html')
+    generos = Genero.objects.all()
+    documento = ({"generos":generos}) 
+    return render(request, 'genero_formulario.html',documento)
 
 def alta_usuario (request):
    
@@ -101,14 +112,19 @@ def alta_usuario (request):
 def alta_serie (request):
    
     if request.method == "POST":
-         miFormulario = Serie_Formulario(request.POST)        
+        miFormulario = Serie_Formulario(request.POST)        
 
-         if miFormulario.is_valid():
+        if miFormulario.is_valid():
             datos = miFormulario.cleaned_data
             serie = Serie(titulo=datos['titulo'],genero=datos['genero'],anio_inicio=datos['anio_inicio'],anio_finalizacion=datos['anio_finalizacion'],temporadas=datos['temporadas'],resumen=datos['resumen'])
             serie.save()
             generos = Genero.objects.all()
             documento = ({"generos":generos})  
+            return render (request, 'serie_formulario.html',documento)
+        else:
+            error = "Hubo un error en uno de los campos."
+            generos = Genero.objects.all()
+            documento = ({"generos":generos, "error":error}) 
             return render (request, 'serie_formulario.html',documento)
     else:
         miFormulario = Serie_Formulario()        
@@ -121,7 +137,7 @@ def alta_serie (request):
 def alta_resenia (request):
    
     if request.method == "POST":
-        print(request.POST)
+        
         miFormulario = Resenia_Formulario(request.POST)        
 
         if miFormulario.is_valid():
@@ -134,12 +150,12 @@ def alta_resenia (request):
             documento = ({"peliculas":peliculas, "ahora":ahora}) 
             return render (request, 'resenia_formulario.html',documento)
         else:
-            error = "Hubo un error en uno de los campos. Tu nombre no debe superar los 60 caracteres"
+            error = "Hubo un error en uno de los campos."
             ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             peliculas = Pelicula.objects.all()
             documento = ({"peliculas":peliculas, "ahora":ahora, "error":error}) 
             return render (request, 'resenia_formulario.html',documento)
-
+    
     else:
         
         miFormulario = Resenia_Formulario()        
@@ -176,12 +192,16 @@ def buscar_serie (request):  #busqueda serie
         documento = ({"series":series,"generos":generos,"respuesta":respuesta}) 
         return render (request,'series.html',documento) 
 
-def buscar_review (request):  #busqueda reseña    
-    if request.GET['titulo']:
-        titulo = request.GET['titulo']
-        pelicula = Pelicula.objects.filter(titulo__icontains=titulo)
-        return render (request,'resultado_busqueda.html',{"pelicula":pelicula})
+def buscar_resenia (request):  #busqueda reseña    
+    if request.GET['pelicula']:
+        pelicula = request.GET['pelicula']
+        resenias = Resenia.objects.filter(pelicula__icontains=pelicula)
+        return render (request,'buscar_resenia.html',{"resenias":resenias})
     else:
+        resenias = Resenia.objects.all()   
+        generos = Genero.objects.all() 
         respuesta = "no se enviaron datos"  
+        documento = ({"resenias":resenias,"generos":generos,"respuesta":respuesta}) 
+        return render (request,'resenias.html',documento)  
 
     return HttpResponse(respuesta) 

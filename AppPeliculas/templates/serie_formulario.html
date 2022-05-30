@@ -4,6 +4,7 @@
 {% block bloque1 %}
 <br>
 <h3 style="color: rgb(246, 244, 255);text-align: center;">Formulario de alta de Series</h3>
+<p style="color: red;text-align: center;font-size: smaller;">{{error}}</p>
 <br>
 <div class="container">
   <div class="row">
@@ -21,9 +22,9 @@
         <div class="input-group mb-3">
           <label class="input-group-text" for="genero">Genero:</label>
           <select class="form-select" id="genero", name="genero">
-            <option selected>Elija una opcion</option>
+            <option selected></option>
             {% for genre in generos %}
-            <option value={{genre.genero}}>{{genre.genero}}</option>
+            <option value="{{genre.genero}}">{{genre.genero}}</option>
             {% endfor %}
           </select>
         </div>

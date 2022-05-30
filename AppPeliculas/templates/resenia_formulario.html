@@ -21,8 +21,8 @@
         
         <div class="input-group mb-3">
           <label class="input-group-text" for="pelicula">Pelicula:</label>
-          <select class="form-select" id="pelicula", name="pelicula">
-            <option selected>Elija una opcion</option>
+          <select class="form-select" id="pelicula", name="pelicula">            
+            <option selected></option>           
             {% for peli in peliculas %}
             <option value="{{peli.titulo}}">{{peli.titulo}}</option>
             {% endfor %}
